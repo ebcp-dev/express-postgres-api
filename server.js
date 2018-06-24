@@ -1,29 +1,91 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('api-db', 'postgres', 'admin', {
+  // (database, username, passport)
+  host: 'localhost',
+  dialect: 'postgres',
+  pool: {
+    max: 9,
+    min: 0,
+    idle: 10000
+  }
+});
+
+const User = sequelize.define('user', {
+  email: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  password: {
+    type: Sequelize.STRING
+  }
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    User.sync();
+    console.log('Success!');
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const app = express();
+const port = 5000 || process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 5000 || process.env.PORT;
+// API routes
+const test = require('./routes/test'); // Initial test route for API
+app.use('/test', test);
 
-let data = {};
-
-app.get('/', (req, res) => {
-  res.status(200).json({
-    status: 'success'
+// User sign up route
+app.post('/signup', (req, res) => {
+  const newUser = {
+    email: req.body.email,
+    password: req.body.password
+  };
+  // Hash password before storing into db
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) throw err;
+      newUser.password = hash;
+    });
+  });
+  User.findOrCreate({
+    where: { email: newUser.email },
+    defaults: newUser
+  }).spread((user, created) => {
+    if (!created)
+      res.status(400).json({
+        error: 'Email already exists.'
+      });
+    else {
+      res.status(200).json(user);
+    }
   });
 });
 
-app.post('/data', (req, res) => {
-  console.log(req.body)
-  data.string = req.body.data;
-  res.json(data);
+// User sign in route
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 });
 
-app.get('/data', (req, res) => {
-  res.json(data);
+// Get all user objects in db
+app.get('/all', (req, res) => {
+  User.findAll().then(users => {
+    res.json({
+      message: 'All users in the database.',
+      users
+    });
+  });
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}.`));
