@@ -1,1 +1,1 @@
-A basic Node.js api implemented with simple get and post methods.
+An API written in Node with a PostgreSQL database and JWT authentication.
