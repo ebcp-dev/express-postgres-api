@@ -42,36 +42,41 @@ router.post('/login', (req, res) => {
   const password = req.body.password;
 
   // Find user by email
-  User.findOne({ where: { email } }).then(user => {
-    if (!user) {
-      errors.email = 'User not found.';
-      return res.status(404).json(errors);
-    }
-    // Check password
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        // JWT payload
-        const payload = {
-          email: user.email
-        };
-        // Sign token
-        jwt.sign(
-          payload,
-          Keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.status(200).json({
-              success: true,
-              session: 'Bearer ' + token
-            });
-          }
-        );
-      } else {
-        errors.password = 'Incorrect password.';
-        return res.status(400).json(errors);
+  User.findOne({ where: { email } })
+    .then(user => {
+      if (!user) {
+        errors.email = 'User not found.';
+        return res.status(404).json(errors);
       }
-    });
-  });
+      // Check password
+      bcrypt
+        .compare(password, user.password)
+        .then(isMatch => {
+          if (isMatch) {
+            // JWT payload
+            const payload = {
+              email: user.email
+            };
+            // Sign token
+            jwt.sign(
+              payload,
+              Keys.secretOrKey,
+              { expiresIn: 3600 },
+              (err, token) => {
+                res.status(200).json({
+                  success: true,
+                  session: 'Bearer ' + token
+                });
+              }
+            );
+          } else {
+            errors.password = 'Incorrect password.';
+            return res.status(400).json(errors);
+          }
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 });
 
 // Get current user
@@ -86,12 +91,14 @@ router.get(
 
 // Get all user objects in db
 router.get('/all', (req, res) => {
-  User.findAll().then(users => {
-    res.json({
-      message: 'All users in the database.',
-      users
-    });
-  });
+  User.findAll()
+    .then(users => {
+      res.json({
+        message: 'All users in the database.',
+        users
+      });
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;
