@@ -94,15 +94,4 @@ router.get('/all', (req, res) => {
   });
 });
 
-// Utility
-const uniqueId = uuid => {
-  User.count({ where: { id: uuid } }).then(count => {
-    if (count != 0) {
-      console.log('UUID not unique');
-      return false;
-    }
-    return true;
-  });
-};
-
 module.exports = router;

@@ -13,6 +13,7 @@ const sequelize = new Sequelize(Keys.db, Keys.dbuser, Keys.dbpass, {
   }
 });
 
+// Create User model from definition in /models/User.js
 const User = UserModel(sequelize, Sequelize);
 
 sequelize.sync({ force: true }).then(() => {
