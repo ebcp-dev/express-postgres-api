@@ -1,3 +1,6 @@
 module.exports = {
-  secretOrKey: 'secret'
-}
+  secretOrKey: 'secret',
+  db: 'api-db',
+  dbuser: 'postgres',
+  dbpass: 'admin'
+};
