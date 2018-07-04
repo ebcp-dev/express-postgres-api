@@ -37,16 +37,16 @@ describe('Authentication routes', done => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.success).to.be.true;
-      });
-  });
 
-  it('Status 200 on authenticated route', async () => {
-    request(server)
-      .get('/user/current')
-      .set('Authorization', jwt)
-      .expect(200)
-      .end((err, res) => {
-        expect(res.body.email).equal(userCredentials.test.email);
+        it('Status 200 on authenticated route', async () => {
+          request(server)
+            .get('/user/current')
+            .set('Authorization', jwt)
+            .expect(200)
+            .end((err, res) => {
+              expect(res.body.email).equal(userCredentials.test.email);
+            });
+        });
       });
   });
 
