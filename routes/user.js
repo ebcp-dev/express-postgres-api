@@ -90,12 +90,12 @@ router.get(
 );
 
 // Get all user objects in db
-router.get('/all', (req, res) => {
-  User.findAll()
-    .then(users => {
-      res.status(200).json(users);
-    })
-    .catch(err => console.log(err));
-});
+// router.get('/all', (req, res) => {
+//   User.findAll()
+//     .then(users => {
+//       res.status(200).json(users);
+//     })
+//     .catch(err => console.log(err));
+// });
 
 module.exports = router;
