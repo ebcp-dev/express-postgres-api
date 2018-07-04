@@ -74,9 +74,9 @@ router.post('/login', (req, res) => {
             return res.status(400).json(errors);
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => res.status(400).json(err));
     })
-    .catch(err => console.log(err));
+    .catch(err => res.status(400).json(err));
 });
 
 // Get current user
@@ -85,7 +85,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // Return authorized user
-    res.json(req.user);
+    res.status(200).json(req.user);
   }
 );
 
@@ -93,10 +93,7 @@ router.get(
 router.get('/all', (req, res) => {
   User.findAll()
     .then(users => {
-      res.json({
-        message: 'All users in the database.',
-        users
-      });
+      res.status(200).json(users);
     })
     .catch(err => console.log(err));
 });

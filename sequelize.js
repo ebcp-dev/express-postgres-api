@@ -10,13 +10,14 @@ const sequelize = new Sequelize(Keys.db, Keys.dbuser, Keys.dbpass, {
     min: 0,
     acquire: 30000,
     idle: 10000
-  }
+  },
+  logging: false
 });
 
 // Create User model from definition in /models/User.js
 const User = UserModel(sequelize, Sequelize);
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync().then(() => {
   console.log(`Database & tables created!`);
 });
 

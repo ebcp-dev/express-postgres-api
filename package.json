@@ -4,7 +4,8 @@
   "description": "An api written in Node.js",
   "main": "server.js",
   "scripts": {
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "test": "mocha"
   },
   "author": "Earl Perez",
   "license": "ISC",
@@ -20,6 +21,10 @@
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
+    "superagent": "^3.8.3",
+    "supertest": "^3.1.0"
   }
 }

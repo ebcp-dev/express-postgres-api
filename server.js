@@ -15,8 +15,10 @@ require('./config/passport')(passport);
 
 // API routes
 const user = require('./routes/user');
-const test = require('./routes/test'); // Initial test route for API
-app.use('/test', test);
+const data = require('./routes/data'); // Initial data route for API
+app.use('/', data);
 app.use('/user', user);
 
 app.listen(port, () => console.log(`Server running on port ${port}.`));
+
+module.exports = app;
