@@ -17,17 +17,17 @@ const userCredentials = {
 // Store authorization token
 let jwt;
 
-before(done => {
-  request(server)
-    .post('/user/login')
-    .send(userCredentials.test)
-    .expect(200)
-    .end((err, res) => {
-      expect(res.body.success).to.be.true;
-      jwt = res.body.session;
-      done();
-    });
-});
+// before(done => {
+//   request(server)
+//     .post('/user/login')
+//     .send(userCredentials.test)
+//     .expect(200)
+//     .end((err, res) => {
+//       expect(res.body.success).to.be.true;
+//       jwt = res.body.session;
+//       done();
+//     });
+// });
 
 describe('Authentication routes', done => {
   it('Status 200 on successful login', async () => {
