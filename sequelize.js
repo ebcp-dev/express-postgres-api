@@ -17,12 +17,9 @@ const sequelize = new Sequelize(Keys.db, Keys.dbuser, Keys.dbpass, {
 // Create User model from definition in /models/User.js
 const User = UserModel(sequelize, Sequelize);
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log(`Database & tables created!`);
-  })
-  .catch(err => console.log(err));
+sequelize.sync().then(() => {
+  console.log(`Database & tables created!`);
+});
 
 module.exports = {
   User
