@@ -1,5 +1,6 @@
 language: node_js
 sudo: required
+dist: trusty 
 node_js:
   - "stable"
 install:
@@ -12,5 +13,5 @@ script:
   - ./node_modules/.bin/codecov
   - npm start test
 before_script:
-  - psql -c 'CREATE DATABASE api-db;' -U postgres
-  - psql -c 'CREATE USER postgres WITH PASSWORD 'admin';' -U postgres
+  - psql -c 'CREATE DATABASE "api-db";' -U postgres
+  - psql -c 'CREATE USER postgres WITH PASSWORD "admin";' -U postgres
