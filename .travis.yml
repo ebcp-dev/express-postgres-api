@@ -1,6 +1,5 @@
-language:
-  node_js
-sudo: false
+language: node_js
+sudo: required
 node_js:
   - "stable"
 install:
@@ -8,9 +7,10 @@ install:
   - npm install -g codecov
 services:
   - postgresql
-before_script:
-  - psql -c 'create database api-db;' -U postgres admin
 script:
   - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec
   - ./node_modules/.bin/codecov
   - npm start test
+before_script:
+  - psql -c 'CREATE DATABASE api-db;' -U postgres
+  - psql -c 'CREATE USER postgres WITH PASSWORD 'admin';' -U postgres
