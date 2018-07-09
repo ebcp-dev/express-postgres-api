@@ -10,7 +10,6 @@ postgres:
   adapter: postgresql
   database: testing_db
   username: postgres
-
 env:
   global:
     - PGPORT=5433
