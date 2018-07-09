@@ -1,6 +1,6 @@
 language: node_js
 sudo: required
-dist: xenial 
+dist: trusty 
 node_js:
   - "stable"
 install:
@@ -16,6 +16,7 @@ env:
   global:
     - PGPORT=5433
 before_script:
+  - su - postgres
   - psql -c "CREATE DATABASE testing_db;" -U postgres
   - psql -c "CREATE USER foo WITH PASSWORD 'bar';" -U postgres
 script:
