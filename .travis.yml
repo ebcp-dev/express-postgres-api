@@ -17,4 +17,4 @@ before_script:
 script:
   - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec
   - ./node_modules/.bin/codecov
-  - npm start test
+  - npm  test
