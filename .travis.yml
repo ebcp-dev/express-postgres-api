@@ -6,12 +6,11 @@ node_js:
 install:
   - npm install
   - npm install -g codecov
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
+postgres:
+  adapter: postgresql
+  database: testing_db
+  username: postgres
+
 env:
   global:
     - PGPORT=5433
