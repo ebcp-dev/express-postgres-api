@@ -12,7 +12,8 @@ env:
   global:
     - PGPORT=5433
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - sudo -u postgres psql -p 5432 -h 127.0.0.1
+  - createdb -p 5432 -h 127.0.0.1 travis_ci_test
 script:
   - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec
   - ./node_modules/.bin/codecov
