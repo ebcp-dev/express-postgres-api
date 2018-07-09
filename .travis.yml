@@ -16,7 +16,7 @@ env:
   global:
     - PGPORT=5433
 before_script:
-  - psql
+  - systemctl status postgresql
   - psql -c "CREATE DATABASE testing_db;" -U postgres
   - psql -c "CREATE USER foo WITH PASSWORD 'bar';" -U postgres
 script:
