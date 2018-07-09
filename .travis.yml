@@ -10,7 +10,7 @@ services:
   - postgresql
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
 before_script:
   - createdb -p 5432 -h 127.0.0.1 travis_ci_test
 script:
