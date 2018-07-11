@@ -49,25 +49,10 @@ describe('Authentication routes', done => {
       .send(userCredentials.invalid)
       .expect(400, done);
   });
-});
 
-describe('Protected routes', () => {
   it('Status 401 on unauthorized access', done => {
     request(server)
       .get('/user/current')
       .expect(401, done);
-  });
-
-  it('Status 200 on protected route while authenticated', () => {
-    request(server)
-      .post('/user/login')
-      .send(userCredentials.test)
-      .expect(200)
-      .end(res => {
-        request(server)
-          .get('/user/current')
-          .set('Authorization', res.body.session) // Pass in authentication from login response
-          .expect(200, done);
-      });
   });
 });
