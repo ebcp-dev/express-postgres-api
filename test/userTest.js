@@ -28,7 +28,6 @@ describe('Authentication routes', done => {
       .send(userCredentials.test)
       .expect(200)
       .end((err, res) => {
-        console.log(res.body);
         expect(res.body.email).equal(userCredentials.test.email);
       });
   });
