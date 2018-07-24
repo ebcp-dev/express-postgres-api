@@ -7,8 +7,18 @@ const passport = require('passport');
 const { User } = require('../sequelize');
 const Keys = require('../config/keys');
 
+// Validation imports
+const validateRegisterInput = require('../validation/register');
+const validateLoginInput = require('../validation/login');
+
 // User sign up route
 router.post('/signup', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const newUser = {
     email: req.body.email,
     password: req.body.password
@@ -25,18 +35,22 @@ router.post('/signup', (req, res) => {
     defaults: newUser
   }).spread((user, created) => {
     if (!created) {
-      res.status(400).json({
-        error: 'Email already exists.'
-      });
+      errors.email = 'Email already in use.';
+      return res.status(400).json(errors);
     } else {
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
   });
 });
 
 // User sign in route
 router.post('/login', (req, res) => {
-  const errors = {};
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   // Plain text login password
   const password = req.body.password;
@@ -61,9 +75,9 @@ router.post('/login', (req, res) => {
             jwt.sign(
               payload,
               Keys.secretOrKey,
-              { expiresIn: 3600 },
+              { expiresIn: 1800 },
               (err, token) => {
-                res.status(200).json({
+                return res.status(200).json({
                   success: true,
                   session: 'Bearer ' + token
                 });
@@ -85,7 +99,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // Return authorized user
-    res.status(200).json(req.user);
+    return res.status(200).json(req.user);
   }
 );
 

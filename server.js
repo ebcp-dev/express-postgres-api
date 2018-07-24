@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -16,8 +16,8 @@ require('./config/passport')(passport);
 // API routes
 const user = require('./routes/user');
 const data = require('./routes/data'); // Initial data route for API
-app.use('/', data);
-app.use('/user', user);
+app.use('/api', data);
+app.use('/api/user', user);
 
 app.listen(port, () => console.log(`Server running on port ${port}.`));
 
