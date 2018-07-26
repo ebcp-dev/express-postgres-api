@@ -14,10 +14,12 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // API routes
-const user = require('./routes/user');
 const data = require('./routes/data'); // Initial data route for API
+const user = require('./routes/user');
+const website = require('./routes/website');
 app.use('/api', data);
 app.use('/api/user', user);
+app.use('/api/website', website);
 
 app.listen(port, () => console.log(`Server running on port ${port}.`));
 
