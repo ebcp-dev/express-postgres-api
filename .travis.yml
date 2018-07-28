@@ -15,6 +15,6 @@ before_script:
   - createdb -p 5432 -h 127.0.0.1 travis_ci_test
   - createdb -p 5432 -h 127.0.0.1 api-db
 script:
-  - istanbul cover ./node_modules/mocha/bin/_mocha --exit -- -R spec
+  - istanbul cover ./node_modules/mocha/bin/_mocha --exit -R spec
   - ./node_modules/.bin/codecov
   - npm test
