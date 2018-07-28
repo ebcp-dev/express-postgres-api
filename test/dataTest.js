@@ -2,6 +2,7 @@ const request = require('supertest');
 const chai = require('chai');
 const expect = chai.expect;
 const server = require('../server');
+const { User } = require('../sequelize');
 
 // Data for testing POST /data
 const testData = {
@@ -10,6 +11,41 @@ const testData = {
 const invalidData = {
   data: 12
 };
+
+// Test login credentials
+const testInput = {
+  test: {
+    email: 'testemail@gmail.com',
+    password: 'password'
+  },
+  testSignup: {
+    email: 'testemail@gmail.com',
+    password: 'password',
+    password2: 'password'
+  }
+};
+let token;
+
+before(done => {
+  User.sync({ force: true }).then(res => {
+    request(server)
+      .post('/api/user/signup')
+      .send(testInput.testSignup)
+      .expect(200)
+      .end((err, res) => {
+        expect(res.body.email).equal(testInput.testSignup.email);
+        request(server)
+          .post('/api/user/login')
+          .send(testInput.test)
+          .expect(200)
+          .end((err, res) => {
+            token = res.body.session;
+            expect(res.body.success).to.be.true;
+            done();
+          });
+      });
+  });
+});
 
 describe('GET /api', done => {
   it('Status 200 and JSON with success message', done => {
@@ -21,10 +57,10 @@ describe('GET /api', done => {
       });
     done();
   });
-
   it('Status 400 on no saved data', done => {
     request(server)
       .get('/api/data')
+      .set('Authorization', token)
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('No data saved.');
@@ -37,6 +73,7 @@ describe('POST /api/data', done => {
   it('Status 200 on valid data', done => {
     request(server)
       .post('/api/data')
+      .set('Authorization', token)
       .send(testData)
       .expect(200)
       .end(function(err, res) {
@@ -44,10 +81,16 @@ describe('POST /api/data', done => {
       });
     done();
   });
-
+  it('Status 401 on unauthorized', done => {
+    request(server)
+      .post('/api/data')
+      .send(invalidData)
+      .expect(401, done);
+  });
   it('Status 400 on invalid data', done => {
     request(server)
       .post('/api/data')
+      .set('Authorization', token)
       .send(invalidData)
       .expect(400)
       .end(function(err, res) {
@@ -55,10 +98,10 @@ describe('POST /api/data', done => {
       });
     done();
   });
-
   it('Status 400 on empty data', done => {
     request(server)
       .post('/api/data')
+      .set('Authorization', token)
       .send('')
       .expect(400)
       .end(function(err, res) {
@@ -66,10 +109,10 @@ describe('POST /api/data', done => {
       });
     done();
   });
-
   it('Status 400 on no passed data', done => {
     request(server)
       .post('/api/data')
+      .set('Authorization', token)
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('Invalid input.');
@@ -82,10 +125,16 @@ describe('GET /data', done => {
   it('Return saved data', done => {
     request(server)
       .get('/api/data')
+      .set('Authorization', token)
       .expect(200)
       .end(function(err, res) {
         expect(res.body.string).equal(testData.data);
       });
     done();
+  });
+  it('Status 401 unauthorized', done => {
+    request(server)
+      .get('/api/data')
+      .expect(401, done);
   });
 });

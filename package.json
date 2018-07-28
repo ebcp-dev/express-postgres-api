@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "serve": "nodemon server.js",
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "author": "Earl Perez",
   "license": "ISC",

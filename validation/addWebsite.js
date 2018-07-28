@@ -6,13 +6,16 @@ module.exports = function validateWebsiteInput(data) {
 
   data.name = !isEmpty(data.name) ? data.name : '';
   data.url = !isEmpty(data.url) ? data.url : '';
-
   if (Validator.isEmpty(data.name)) {
     errors.name = 'Name is required.';
   }
 
   if (Validator.isEmpty(data.url)) {
     errors.url = 'URL is required.';
+  }
+
+  if (!Validator.isURL(data.url)) {
+    errors.url = 'URL is invalid.';
   }
 
   return {
