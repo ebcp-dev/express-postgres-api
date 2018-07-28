@@ -28,6 +28,7 @@ let token;
 
 before(done => {
   User.sync({ force: true }).then(res => {
+    User.destroy({ where: {}, truncate: true });
     request(server)
       .post('/api/user/signup')
       .send(testInput.testSignup)
