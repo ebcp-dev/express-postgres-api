@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "serve": "nodemon server.js",
-    "test": "nyc mocha --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --exit",
     "cover": "istanbul cover _mocha"
   },
   "author": "Earl Perez",

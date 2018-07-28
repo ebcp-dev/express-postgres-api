@@ -65,7 +65,7 @@ before(done => {
   });
 });
 
-describe('Authentication routes', done => {
+describe('/user/login and /user/signup Authentication routes', done => {
   it('Status 200 on successful login', done => {
     request(server)
       .post('/api/user/login')
@@ -77,7 +77,25 @@ describe('Authentication routes', done => {
       });
     done();
   });
-  it('Status 400 on existing email', done => {
+  it('Status 400 on wrong login email', done => {
+    request(server)
+      .post('/api/user/login')
+      .send(testInput.wrongEmail)
+      .expect(400, done);
+  });
+  it('Status 400 on wrong login password', done => {
+    request(server)
+      .post('/api/user/login')
+      .send(testInput.wrongPassword)
+      .expect(400, done);
+  });
+  it('Status 400 on empty login input', done => {
+    request(server)
+      .post('/api/user/login')
+      .send(testInput.emptyInput)
+      .expect(400, done);
+  });
+  it('Status 400 on existing signup email', done => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.testSignup)
@@ -89,28 +107,10 @@ describe('Authentication routes', done => {
       .send(testInput.emptyInput)
       .expect(400, done);
   });
-  it('Status 400 on signup confirm password failure', done => {
+  it('Status 400 on confirm password signup failure', done => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.signupUnconfirmedPasswords)
-      .expect(400, done);
-  });
-  it('Status 400 on empty login input', done => {
-    request(server)
-      .post('/api/user/login')
-      .send(testInput.emptyInput)
-      .expect(400, done);
-  });
-  it('Status 400 on wrong email', done => {
-    request(server)
-      .post('/api/user/login')
-      .send(testInput.wrongEmail)
-      .expect(400, done);
-  });
-  it('Status 400 on wrong password', done => {
-    request(server)
-      .post('/api/user/login')
-      .send(testInput.wrongPassword)
       .expect(400, done);
   });
   it('Status 200 on authorized access for /current', done => {
@@ -126,7 +126,7 @@ describe('Authentication routes', done => {
   });
 });
 
-describe('Website list route before adding', done => {
+describe('GET /website/list route before adding', done => {
   it('Status 200 with empty array when no data is saved', done => {
     request(server)
       .get('/api/website/list')
@@ -145,7 +145,7 @@ describe('Website list route before adding', done => {
   });
 });
 
-describe('Website add routes', done => {
+describe('POST /website/add routes', done => {
   it('Status 200 on successful add', done => {
     request(server)
       .post('/api/website/add')
@@ -190,7 +190,7 @@ describe('Website add routes', done => {
   });
 });
 
-describe('Website list route with data', done => {
+describe('GET /website/list route with data', done => {
   it('Status 200 with list of added websites', done => {
     request(server)
       .get('/api/website/list')

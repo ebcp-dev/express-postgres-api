@@ -47,7 +47,7 @@ before(done => {
   });
 });
 
-describe('GET /api', done => {
+describe('GET /', done => {
   it('Status 200 and JSON with success message', done => {
     request(server)
       .get('/api')
@@ -69,7 +69,7 @@ describe('GET /api', done => {
   });
 });
 
-describe('POST /api/data', done => {
+describe('POST /data', done => {
   it('Status 200 on valid data', done => {
     request(server)
       .post('/api/data')
