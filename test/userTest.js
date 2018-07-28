@@ -10,10 +10,23 @@ const testInput = {
     email: 'testemail@gmail.com',
     password: 'password'
   },
+  wrongEmail: {
+    email: 'testemai@gmail.com',
+    password: 'password'
+  },
+  wrongPassword: {
+    email: 'testemail@gmail.com',
+    password: 'passwords'
+  },
   testSignup: {
     email: 'testemail@gmail.com',
     password: 'password',
     password2: 'password'
+  },
+  signupUnconfirmedPasswords: {
+    email: 'testemail@gmail.com',
+    password: 'password',
+    password2: 'password2'
   },
   emptyInput: {
     email: '',
@@ -64,10 +77,40 @@ describe('Authentication routes', done => {
       });
     done();
   });
-  it('Status 400 on wrong credentials', done => {
+  it('Status 400 on existing email', done => {
+    request(server)
+      .post('/api/user/signup')
+      .send(testInput.testSignup)
+      .expect(400, done);
+  });
+  it('Status 400 on empty signup input', done => {
+    request(server)
+      .post('/api/user/signup')
+      .send(testInput.emptyInput)
+      .expect(400, done);
+  });
+  it('Status 400 on signup confirm password failure', done => {
+    request(server)
+      .post('/api/user/signup')
+      .send(testInput.signupUnconfirmedPasswords)
+      .expect(400, done);
+  });
+  it('Status 400 on empty login input', done => {
     request(server)
       .post('/api/user/login')
       .send(testInput.emptyInput)
+      .expect(400, done);
+  });
+  it('Status 400 on wrong email', done => {
+    request(server)
+      .post('/api/user/login')
+      .send(testInput.wrongEmail)
+      .expect(400, done);
+  });
+  it('Status 400 on wrong password', done => {
+    request(server)
+      .post('/api/user/login')
+      .send(testInput.wrongPassword)
       .expect(400, done);
   });
   it('Status 200 on authorized access for /current', done => {
