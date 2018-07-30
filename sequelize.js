@@ -28,5 +28,6 @@ sequelize.sync().then(() => {
 
 module.exports = {
   User,
-  Website
+  Website,
+  sequelize
 };

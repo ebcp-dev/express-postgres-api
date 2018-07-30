@@ -2,7 +2,7 @@ const request = require('supertest');
 const chai = require('chai');
 const expect = chai.expect;
 const server = require('../server');
-const { User, Website } = require('../sequelize');
+const { User, Website, sequelize } = require('../sequelize');
 
 // Test login credentials
 const testInput = {
@@ -49,16 +49,12 @@ before(done => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.testSignup)
-      .expect(200)
       .end((err, res) => {
-        expect(res.body.email).equal(testInput.testSignup.email);
         request(server)
           .post('/api/user/login')
           .send(testInput.test)
-          .expect(200)
           .end((err, res) => {
             token = res.body.session;
-            expect(res.body.success).to.be.true;
             done();
           });
       });
@@ -207,4 +203,10 @@ describe('GET /website/list route with data', done => {
       .get('/api/website/list')
       .expect(401, done);
   });
+});
+
+after(done => {
+  sequelize.close();
+  done();
+  process.exit(0);
 });
