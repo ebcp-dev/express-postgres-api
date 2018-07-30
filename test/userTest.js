@@ -208,5 +208,6 @@ describe('GET /website/list route with data', done => {
 after(done => {
   sequelize.close();
   done();
+  // Need to manually exit mocha
   process.exit(0);
 });
