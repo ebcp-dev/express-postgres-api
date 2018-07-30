@@ -50,8 +50,8 @@ describe('GET /', done => {
       .expect(200)
       .end(function(err, res) {
         expect(res.body.message).equal('success');
+        done();
       });
-    done();
   });
   it('Status 400 on no saved data', done => {
     request(server)
@@ -60,8 +60,8 @@ describe('GET /', done => {
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('No data saved.');
+        done();
       });
-    done();
   });
 });
 
@@ -74,8 +74,8 @@ describe('POST /data', done => {
       .expect(200)
       .end(function(err, res) {
         expect(res.body.string).equal(testData.data);
+        done();
       });
-    done();
   });
   it('Status 401 on unauthorized', done => {
     request(server)
@@ -91,8 +91,8 @@ describe('POST /data', done => {
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('Invalid input.');
+        done();
       });
-    done();
   });
   it('Status 400 on empty data', done => {
     request(server)
@@ -102,8 +102,8 @@ describe('POST /data', done => {
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('Invalid input.');
+        done();
       });
-    done();
   });
   it('Status 400 on no passed data', done => {
     request(server)
@@ -112,8 +112,8 @@ describe('POST /data', done => {
       .expect(400)
       .end(function(err, res) {
         expect(res.body.error).equal('Invalid input.');
+        done();
       });
-    done();
   });
 });
 
@@ -125,8 +125,8 @@ describe('GET /data', done => {
       .expect(200)
       .end(function(err, res) {
         expect(res.body.string).equal(testData.data);
+        done();
       });
-    done();
   });
   it('Status 401 unauthorized', done => {
     request(server)

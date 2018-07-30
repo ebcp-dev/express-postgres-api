@@ -70,8 +70,8 @@ describe('/user/login and /user/signup Authentication routes', done => {
       .end((err, res) => {
         token = res.body.session;
         expect(res.body.success).to.be.true;
+        done();
       });
-    done();
   });
   it('Status 400 on wrong login email', done => {
     request(server)
@@ -130,8 +130,8 @@ describe('GET /website/list route before adding', done => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.length).equal(0);
+        done();
       });
-    done();
   });
 
   it('Status 401 on unauthorized access', done => {
@@ -150,8 +150,8 @@ describe('POST /website/add routes', done => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.name).equal(testInput.testWebsite.name);
+        done();
       });
-    done();
   });
   it('Status 400 on empty input', done => {
     request(server)
@@ -175,8 +175,8 @@ describe('POST /website/add routes', done => {
       .expect(400)
       .end((err, res) => {
         expect(res.body.url).equal('Website already added.');
+        done();
       });
-    done();
   });
   it('Status 401 on unauthorized access', done => {
     request(server)
@@ -194,8 +194,8 @@ describe('GET /website/list route with data', done => {
       .expect(200)
       .end((err, res) => {
         expect(res.body.length).equal(1);
+        done();
       });
-    done();
   });
 
   it('Status 401 on unauthorized access', done => {
