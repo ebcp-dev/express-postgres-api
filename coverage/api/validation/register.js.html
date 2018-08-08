@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">16.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>18/18</span>
+        <span class='fraction'>3/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>16/16</span>
+        <span class='fraction'>0/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">16.67% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/18</span>
+        <span class='fraction'>3/18</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -86,34 +86,34 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,35 +121,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Validator = require('validator');
 const isEmpty = require('./utility/is-empty');
 &nbsp;
-module.exports = function validateRegisterInput(data) {
-  let errors = {};
+module.exports = function <span class="fstat-no" title="function not covered" >validateRegisterInput(</span>data) {
+  let errors = <span class="cstat-no" title="statement not covered" >{};</span>
 &nbsp;
-  data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
-  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
+<span class="cstat-no" title="statement not covered" >  data.email = !isEmpty(data.email) ? data.email : '';</span>
+<span class="cstat-no" title="statement not covered" >  data.password = !isEmpty(data.password) ? data.password : '';</span>
+<span class="cstat-no" title="statement not covered" >  data.password2 = !isEmpty(data.password2) ? data.password2 : '';</span>
 &nbsp;
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email is required.';
+<span class="cstat-no" title="statement not covered" >  if (Validator.isEmpty(data.email)) {</span>
+<span class="cstat-no" title="statement not covered" >    errors.email = 'Email is required.';</span>
   }
 &nbsp;
-  if (!Validator.isEmail(data.email)) {
-    errors.email =
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isEmail(data.email)) {</span>
+<span class="cstat-no" title="statement not covered" >    errors.email =</span>
       'Email is invalid. (Make sure email id is at least 6 characters long.)';
   }
 &nbsp;
-  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = 'Password must be between 6 and 30 characters.';
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {</span>
+<span class="cstat-no" title="statement not covered" >    errors.password = 'Password must be between 6 and 30 characters.';</span>
   }
 &nbsp;
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirm password is required.';
+<span class="cstat-no" title="statement not covered" >  if (Validator.isEmpty(data.password2)) {</span>
+<span class="cstat-no" title="statement not covered" >    errors.password2 = 'Confirm password is required.';</span>
   }
 &nbsp;
-  if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'Passwords must match.';
+<span class="cstat-no" title="statement not covered" >  if (!Validator.equals(data.password, data.password2)) {</span>
+<span class="cstat-no" title="statement not covered" >    errors.password2 = 'Passwords must match.';</span>
   }
 &nbsp;
-  return {
+<span class="cstat-no" title="statement not covered" >  return {</span>
     errors,
     isValid: isEmpty(errors)
   };
@@ -160,7 +160,7 @@ module.exports = function validateRegisterInput(data) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 07 2018 18:06:07 GMT-0700 (Pacific Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 07 2018 18:17:57 GMT-0700 (Pacific Daylight Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

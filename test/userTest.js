@@ -174,7 +174,7 @@ describe('POST /website/add routes', done => {
       .send(testInput.testWebsite)
       .expect(400)
       .end((err, res) => {
-        expect(res.body.url).equal('Website already added.');
+        expect(res.body.errors.url).equal('Website already added.');
         done();
       });
   });
