@@ -6,12 +6,10 @@ module.exports = (sequelize, type) => {
       defaultValue: type.UUIDV4
     },
     name: {
-      type: type.STRING,
-      unique: true
+      type: type.STRING
     },
     url: {
-      type: type.STRING,
-      unique: true
+      type: type.STRING
     },
     status: {
       type: type.STRING,

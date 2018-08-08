@@ -75,7 +75,7 @@ router.post('/login', (req, res) => {
             jwt.sign(
               payload,
               Keys.secretOrKey,
-              { expiresIn: 1800 },
+              { expiresIn: 3600 },
               (err, token) => {
                 return res.status(200).json({
                   success: true,
@@ -102,14 +102,5 @@ router.get(
     return res.status(200).json(req.user);
   }
 );
-
-// Get all user objects in db
-// router.get('/all', (req, res) => {
-//   User.findAll()
-//     .then(users => {
-//       res.status(200).json(users);
-//     })
-//     .catch(err => console.log(err));
-// });
 
 module.exports = router;

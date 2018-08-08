@@ -13,7 +13,8 @@ module.exports = function validateRegisterInput(data) {
   }
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid.';
+    errors.email =
+      'Email is invalid. (Make sure email id is at least 6 characters long.)';
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {

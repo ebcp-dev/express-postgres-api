@@ -8,7 +8,7 @@ const { Website } = require('../sequelize');
 // Validation imports
 const validateWebsiteInput = require('../validation/addWebsite');
 
-// User sign up route
+// Add website route
 router.post(
   '/add',
   passport.authenticate('jwt', { session: false }),
@@ -26,12 +26,12 @@ router.post(
     };
 
     Website.findOrCreate({
-      where: { url: newWebsite.url },
+      where: { userId: newWebsite.userId, url: newWebsite.url },
       defaults: newWebsite
     }).spread((website, created) => {
       if (!created) {
         errors.url = 'Website already added.';
-        return res.status(400).json(errors);
+        return res.status(400).json({ errors, website });
       } else {
         return res.status(200).json(website);
       }
@@ -39,7 +39,7 @@ router.post(
   }
 );
 
-// Get current user
+// Get list of websites of current user
 router.get(
   '/list',
   passport.authenticate('jwt', {

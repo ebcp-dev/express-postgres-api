@@ -20,7 +20,7 @@ const sequelize = new Sequelize(Keys.db, Keys.dbuser, Keys.dbpass, {
 const User = UserModel(sequelize, Sequelize);
 const Website = WebsiteModel(sequelize, Sequelize);
 // Set User's primary key (id) as Website's foreign key
-Website.belongsTo(User);
+Website.belongsTo(User, { foreignKey: 'userId' });
 
 sequelize.sync().then(() => {
   console.log(`Database & tables created!`);
