@@ -48,7 +48,7 @@ router.get(
   (req, res) => {
     Website.findAll({
       where: { userId: req.user.id }
-    }).then(websites => {
+    }).then((websites) => {
       return res.status(200).json(websites);
     });
   }

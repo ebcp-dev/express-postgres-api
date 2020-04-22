@@ -57,7 +57,7 @@ router.post('/login', (req, res) => {
 
   // Find user by email
   User.findOne({ where: { email } })
-    .then(user => {
+    .then((user) => {
       if (!user) {
         errors.email = 'User not found.';
         return res.status(400).json(errors);
@@ -65,7 +65,7 @@ router.post('/login', (req, res) => {
       // Check password
       bcrypt
         .compare(password, user.password)
-        .then(isMatch => {
+        .then((isMatch) => {
           if (isMatch) {
             // JWT payload
             const payload = {
@@ -88,9 +88,9 @@ router.post('/login', (req, res) => {
             return res.status(400).json(errors);
           }
         })
-        .catch(err => res.status(400).json(err));
+        .catch((err) => res.status(400).json(err));
     })
-    .catch(err => res.status(400).json(err));
+    .catch((err) => res.status(400).json(err));
 });
 
 // Get current user

@@ -43,8 +43,8 @@ const testInput = {
 };
 let token;
 
-before(done => {
-  User.sync({ force: true }).then(res => {
+before((done) => {
+  User.sync({ force: true }).then((res) => {
     Website.destroy({ where: {}, truncate: true });
     request(server)
       .post('/api/user/signup')
@@ -61,8 +61,8 @@ before(done => {
   });
 });
 
-describe('/user/login and /user/signup Authentication routes', done => {
-  it('Status 200 on successful login', done => {
+describe('/user/login and /user/signup Authentication routes', (done) => {
+  it('Status 200 on successful login', (done) => {
     request(server)
       .post('/api/user/login')
       .send(testInput.test)
@@ -73,57 +73,55 @@ describe('/user/login and /user/signup Authentication routes', done => {
         done();
       });
   });
-  it('Status 400 on wrong login email', done => {
+  it('Status 400 on wrong login email', (done) => {
     request(server)
       .post('/api/user/login')
       .send(testInput.wrongEmail)
       .expect(400, done);
   });
-  it('Status 400 on wrong login password', done => {
+  it('Status 400 on wrong login password', (done) => {
     request(server)
       .post('/api/user/login')
       .send(testInput.wrongPassword)
       .expect(400, done);
   });
-  it('Status 400 on empty login input', done => {
+  it('Status 400 on empty login input', (done) => {
     request(server)
       .post('/api/user/login')
       .send(testInput.emptyInput)
       .expect(400, done);
   });
-  it('Status 400 on existing signup email', done => {
+  it('Status 400 on existing signup email', (done) => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.testSignup)
       .expect(400, done);
   });
-  it('Status 400 on empty signup input', done => {
+  it('Status 400 on empty signup input', (done) => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.emptyInput)
       .expect(400, done);
   });
-  it('Status 400 on confirm password signup failure', done => {
+  it('Status 400 on confirm password signup failure', (done) => {
     request(server)
       .post('/api/user/signup')
       .send(testInput.signupUnconfirmedPasswords)
       .expect(400, done);
   });
-  it('Status 200 on authorized access for /current', done => {
+  it('Status 200 on authorized access for /current', (done) => {
     request(server)
       .get('/api/user/current')
       .set('Authorization', token)
       .expect(200, done);
   });
-  it('Status 401 on unauthorized access for /current', done => {
-    request(server)
-      .get('/api/user/current')
-      .expect(401, done);
+  it('Status 401 on unauthorized access for /current', (done) => {
+    request(server).get('/api/user/current').expect(401, done);
   });
 });
 
-describe('GET /website/list route before adding', done => {
-  it('Status 200 with empty array when no data is saved', done => {
+describe('GET /website/list route before adding', (done) => {
+  it('Status 200 with empty array when no data is saved', (done) => {
     request(server)
       .get('/api/website/list')
       .set('Authorization', token)
@@ -134,15 +132,13 @@ describe('GET /website/list route before adding', done => {
       });
   });
 
-  it('Status 401 on unauthorized access', done => {
-    request(server)
-      .get('/api/website/list')
-      .expect(401, done);
+  it('Status 401 on unauthorized access', (done) => {
+    request(server).get('/api/website/list').expect(401, done);
   });
 });
 
-describe('POST /website/add routes', done => {
-  it('Status 200 on successful add', done => {
+describe('POST /website/add routes', (done) => {
+  it('Status 200 on successful add', (done) => {
     request(server)
       .post('/api/website/add')
       .set('Authorization', token)
@@ -153,21 +149,21 @@ describe('POST /website/add routes', done => {
         done();
       });
   });
-  it('Status 400 on empty input', done => {
+  it('Status 400 on empty input', (done) => {
     request(server)
       .post('/api/website/add')
       .set('Authorization', token)
       .send(testInput.emptyInput)
       .expect(400, done);
   });
-  it('Status 400 on invalid url', done => {
+  it('Status 400 on invalid url', (done) => {
     request(server)
       .post('/api/website/add')
       .set('Authorization', token)
       .send(testInput.invalidWebsite)
       .expect(400, done);
   });
-  it('Status 400 on already existing website', done => {
+  it('Status 400 on already existing website', (done) => {
     request(server)
       .post('/api/website/add')
       .set('Authorization', token)
@@ -178,7 +174,7 @@ describe('POST /website/add routes', done => {
         done();
       });
   });
-  it('Status 401 on unauthorized access', done => {
+  it('Status 401 on unauthorized access', (done) => {
     request(server)
       .post('/api/website/add')
       .send(testInput.testWebsite)
@@ -186,8 +182,8 @@ describe('POST /website/add routes', done => {
   });
 });
 
-describe('GET /website/list route with data', done => {
-  it('Status 200 with list of added websites', done => {
+describe('GET /website/list route with data', (done) => {
+  it('Status 200 with list of added websites', (done) => {
     request(server)
       .get('/api/website/list')
       .set('Authorization', token)
@@ -198,14 +194,12 @@ describe('GET /website/list route with data', done => {
       });
   });
 
-  it('Status 401 on unauthorized access', done => {
-    request(server)
-      .get('/api/website/list')
-      .expect(401, done);
+  it('Status 401 on unauthorized access', (done) => {
+    request(server).get('/api/website/list').expect(401, done);
   });
 });
 
-after(done => {
+after((done) => {
   sequelize.close();
   done();
   // Need to manually exit mocha
